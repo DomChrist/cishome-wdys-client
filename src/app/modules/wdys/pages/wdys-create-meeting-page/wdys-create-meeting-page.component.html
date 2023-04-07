@@ -1,0 +1,78 @@
+
+<div  style="margin-bottom: 45px; margin-top: 45px;">
+    <p-card>
+        <h2>
+            {{subject | uppercase}}
+        </h2>
+
+        <div>
+            <label>{{cmd.meetingTime | date: 'dd.MM.yyyy'}}</label>
+        </div>
+
+        <div>
+            <p-avatarGroup>
+                <p-avatar shape="circle" size="large" *ngFor="let p of cmd.participants" [label]="p.initial"></p-avatar>
+            </p-avatarGroup>
+        </div>
+
+        <div>
+
+        </div>
+
+    </p-card>
+</div>
+
+
+<p-accordion [activeIndex]="0">
+    <p-accordionTab [header]="subject">
+        <div class="p-field">
+                    <span class="p-float-label">
+                        <input type="text" id="inputtext" pInputText [(ngModel)]="cmd.subject" style="width: 100%" >
+                        <label for="inputtext">MEETING-SUBJECT</label>
+                    </span>
+        </div>
+    </p-accordionTab>
+    <p-accordionTab [header]="date">
+        <div style="text-align: center">
+            <p-calendar name="date" [(ngModel)]="cmd.meetingTime" [inline]="true" [firstDayOfWeek]="1"></p-calendar>
+        </div>
+    </p-accordionTab>
+    <p-accordionTab header="DESCRIPTION">
+        <textarea rows="6" cols="30" placeholder="Your Message" [(ngModel)]="cmd.description" pInputTextarea style="width: 100%" ></textarea>
+    </p-accordionTab>
+    <p-accordionTab header="PARTICIPANTS">
+        <div class="inputgroup" style="width: 100%;">
+            <!--
+            <app-search-participant-dialog (participants)="add($event)" ></app-search-participant-dialog>
+            -->
+            <wdys-participant-input-text (participants)="handle($event)"></wdys-participant-input-text>
+            <button type="button" pButton pRipple icon="pi pi-plus" (click)="showCreateParticipantDialog = !showCreateParticipantDialog"></button>
+        </div>
+    </p-accordionTab>
+</p-accordion>
+
+
+<div>
+
+    <p-card>
+        <button
+            style="float: right"
+            pButton
+            class="p-button-success"
+            label="SAVE"
+            (click)="save()"></button>
+        <button
+            style="float: right"
+            pButton
+            class="p-button-link"
+            label="BACK"
+            (click)="back()"></button>
+        <div style="clear: both"></div>
+    </p-card>
+
+</div>
+
+
+<!--
+<app-create-participant-dialog [(visible)]="showCreateParticipantDialog"></app-create-participant-dialog>
+-->

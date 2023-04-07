@@ -1,0 +1,51 @@
+
+<div *ngIf="!sessionView?.notes">
+
+    <div style="margin-bottom: 15px;"><p-skeleton height="10rem" width="100%"></p-skeleton></div>
+    <div style="margin-bottom: 15px;"><p-skeleton height="10rem" width="100%"></p-skeleton></div>
+    <div style="margin-bottom: 15px;"><p-skeleton height="10rem" width="100%"></p-skeleton></div>
+
+</div>
+
+<div>
+    <wdys-create-session-note></wdys-create-session-note>
+</div>
+
+<p-table [value]="sessionView.notes">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="text-align: center; width: 75px;">
+                <em class="pi pi-user"></em>
+            </th>
+            <th>NOTE</th>
+            <th style="text-align: center; width: 110px;">
+                <em class="pi pi-calendar"></em>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-n>
+        <tr [class.fromjump]="n.id === selectedNote">
+            <td>
+                <p-avatar *ngIf="n.participant" [pTooltip]="n.participant.fullName" [label]="n.participant.initial" size="large"></p-avatar>
+            </td>
+            <td>
+                {{n.note.mediumValue}}
+            </td>
+            <td>
+                {{n.created | date:'dd.MM.yyyy'}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+
+
+<p-dialog [(visible)]="show_create_meeting_note" responsive="true" resizable="true" [style]="{minWidth:'600px'}" modal="true"  >
+    <!--
+    <app-create-session-note></app-create-session-note>
+    -->
+    <!--
+    <app-create-meeting-note [session]="session"></app-create-meeting-note>
+    -->
+</p-dialog>

@@ -1,0 +1,37 @@
+
+@media screen {
+    .meeting-print * {
+        visibility: hidden;
+        display: none;
+    }
+}
+
+
+@media print {
+
+    .meeting-print * {
+        visibility: visible;
+    }
+
+    .meeting-print {
+        visibility: visible;
+    }
+
+    .print-participant{
+        margin-right: 4px;
+    }
+
+    .print-table td:first-child{
+        text-align: left;
+        width: 100px;
+        background: #0c5695;
+        color: white;
+    }
+
+    .print-table td:nth-child(2){
+        text-align: left;
+        font-weight: bold;
+    }
+
+}
+

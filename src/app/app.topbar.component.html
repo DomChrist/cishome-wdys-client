@@ -9,10 +9,7 @@
         <a href="#" id="topbar-sidebar-button" (click)="app.onMenuButtonClick($event)">
             <i class="pi pi-bars"></i>
         </a>
-        <div class="search-input">
-            <i class="pi pi-search icon-search"></i>
-            <input type="text" pInputText=""/>
-        </div>
+        <wdys-search-input></wdys-search-input>
 
         <a href="#" id="topbar-quickmenu-button" (click)="app.onQuickMenuButtonClick($event)">
             QUICK MENU
@@ -21,6 +18,16 @@
         <div class="topbar-icons">
             <ul>
                 <li>
+                    <a [routerLink]="['/wdys/meetings/create']">
+                        <i class="pi pi-calendar topbar-icon-calendar"></i>
+                        <span class="icon-label">NEW MEETING</span>
+                    </a>
+                    <div class="layout-quickmenu-tooltip">
+                        <div class="layout-quickmenu-tooltip-arrow"></div>
+                        <div class="layout-quickmenu-tooltip-text">New Meeting</div>
+                    </div>
+                </li>
+                <li>
                     <a>
                         <i class="pi pi-envelope topbar-icon-plane"></i>
                         <span class="icon-label">Send Mail</span>
@@ -28,16 +35,6 @@
                     <div class="layout-quickmenu-tooltip">
                         <div class="layout-quickmenu-tooltip-arrow"></div>
                         <div class="layout-quickmenu-tooltip-text">Send Mail</div>
-                    </div>
-                </li>
-                <li>
-                    <a>
-                        <i class="pi pi-calendar topbar-icon-calendar"></i>
-                        <span class="icon-label">Add Event</span>
-                    </a>
-                    <div class="layout-quickmenu-tooltip">
-                        <div class="layout-quickmenu-tooltip-arrow"></div>
-                        <div class="layout-quickmenu-tooltip-text">Add Event</div>
                     </div>
                 </li>
                 <li>

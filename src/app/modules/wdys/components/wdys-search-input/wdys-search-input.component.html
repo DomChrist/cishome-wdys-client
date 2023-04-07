@@ -1,0 +1,40 @@
+<div class="search-input">
+    <em class="pi pi-search icon-search"></em>
+    <input #search (keyup)="startSearch($event,search.value)" (focus)="op.toggle($event)" type="text" pInputText=""/>
+</div>
+<p-overlayPanel #op [style]="{width:'520px'}">
+
+    <div class="grid">
+        <div class="col-12">
+            <div *ngIf="meetingResult && meetingResult.length > 0">
+                <p-divider>MEETINGS</p-divider>
+                <div *ngFor="let r of meetingResult" style="margin-bottom: 15px;">
+                    <button pButton label="OPEN"
+                            (click)="openMeeting(r.id)"></button>
+                    <label (click)="openMeeting(r.id)" class="item-label" >&nbsp;{{r.description}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="actionResults && actionResults.length > 0">
+            <div >
+                <p-divider>ACTIONS</p-divider>
+                <div *ngFor="let r of actionResults" style="margin-bottom: 15px;">
+                    <button pButton label="OPEN"
+                            class="p-button-danger"
+                            (click)=" startAction(r.action) "></button>
+                    <label class="item-label" (click)="startAction(r.action)" >&nbsp;{{r.label}}</label>
+                    <div>
+                        <label>{{r.type}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-6"></div>
+    </div>
+
+
+</p-overlayPanel>
+
+
+<wdys-create-participant-dialog [(visible)]="toggleCreateParticipantDialog"></wdys-create-participant-dialog>

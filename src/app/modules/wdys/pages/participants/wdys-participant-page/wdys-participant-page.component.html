@@ -1,0 +1,31 @@
+<p-table
+    [value]="participants"
+    >
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:75px;">
+                <button
+                    pButton
+                    class="p-button-success"
+                    (click)="createDialog = !createDialog"
+                    icon="pi pi-plus"></button>
+            </th>
+            <th>NAME</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-p>
+        <tr>
+            <td>
+                <p-avatar
+                    [routerLink]="p.id"
+                    [label]="p.initial"></p-avatar>
+            </td>
+            <td [routerLink]="p.id">{{p.fullName}}</td>
+        </tr>
+    </ng-template>
+
+</p-table>
+
+
+<wdys-create-participant-dialog [(visible)]="createDialog"></wdys-create-participant-dialog>

@@ -1,0 +1,45 @@
+<p-panel *ngIf="meeting" header="SESSIONS">
+
+    <div *ngIf="false">
+
+        <p-card>
+            <label>
+                {{meeting.session.first.meetingName}}
+            </label>
+            <h4>
+                {{meeting.session.first.description}}
+            </h4>
+        </p-card>
+
+    </div>
+
+    <div  >
+        <p-timeline [value]="meeting.session.sessions" align="alternate">
+            <ng-template pTemplate="marker" let-event>
+                            <span class="custom-marker p-shadow-2" [style.backgroundColor]="color">
+                                <em [ngClass]="icon"></em>
+                            </span>
+            </ng-template>
+            <ng-template pTemplate="content" let-m>
+                <p-card [header]="m.meetingName" [subheader]="m.meetingDate">
+                    <p>{{m.description}}</p>
+
+                    <button pButton label="Read more" class="p-button-text" (click)="openSession(meeting.session.first.meetingSessionId)" ></button>
+
+                    <p-avatarGroup styleClass="p-mb-3">
+                        <p-avatar *ngFor="let p of participants(m)" [label]="p.initial"  size="large" [pTooltip]="p.firstName" shape="circle"></p-avatar>
+                    </p-avatarGroup>
+
+                </p-card>
+            </ng-template>
+        </p-timeline>
+    </div>
+
+    <p-footer>
+        <button
+            pButton
+            label="CREATE SESSION"></button>
+    </p-footer>
+
+
+</p-panel>

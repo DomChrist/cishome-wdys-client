@@ -1,0 +1,22 @@
+<p-panel *ngIf="meeting" header="DATE RANGE" [style]="{height:'100%'}" >
+    <div *ngIf="meeting.dateRange.dateEqual" style="height: 55px;">
+        <p-chip icon="pi pi-calendar" [label]="meeting.dateRange.firstDate | date:'dd.MM.yyyy'"  styleClass="p-mr-2" [style]="{fontSize:'1.3em'}" ></p-chip>
+    </div>
+    <div *ngIf="!meeting.dateRange.dateEqual" class="grid">
+        <div class="col-4 calendar-time " style="text-align: center">
+            <em class="pi pi-calendar" style="font-size: 2.4em;"></em>
+            <div>
+                <label class="daterange">{{meeting.dateRange.firstDate | date:'dd.MM.yyyy'}}</label>
+            </div>
+        </div>
+        <div class="col-4" style="text-align: center;">
+            <em style="font-size: 4em;" class="pi pi-ellipsis-h"></em>
+        </div>
+        <div class="col-4 calendar-time " style="text-align: center">
+            <em style="font-size: 2.4em;" class="pi pi-calendar-times"></em>
+            <div>
+                <label class="daterange" >{{meeting.dateRange.lastDate | date:'dd.MM.yyyy'}}</label>
+            </div>
+        </div>
+    </div>
+</p-panel>

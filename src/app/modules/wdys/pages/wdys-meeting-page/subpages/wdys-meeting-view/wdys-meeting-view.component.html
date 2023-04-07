@@ -1,0 +1,62 @@
+<div class="grid" *ngIf="meeting">
+
+    <div class="col-12">
+        <h2>{{meeting.meetingTopic}}</h2>
+        <hr/>
+    </div>
+
+
+    <div class="col-12" style="text-align: right">
+        <button
+            pButton
+            icon="pi pi-plus"
+            (click)="showCreateSessionDialog()"
+            label="CREATE SESSION"></button>
+
+        <meeting-menu-button></meeting-menu-button>
+
+    </div>
+
+    <div  class="col-6">
+        <wdys-meeting-date-range *ngIf="meeting"></wdys-meeting-date-range>
+    </div>
+
+
+    <div class="col-6">
+        <p-panel header="PARTICIPANTS">
+            <p-avatarGroup>
+                <p-avatar [pTooltip]="p.fullName" *ngFor="let p of meeting.participants" [label]="p.initial" size="xlarge" shape="circle" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" ></p-avatar>
+            </p-avatarGroup>
+        </p-panel>
+    </div>
+
+    <div class="col-12">
+        <p-messages severity="info">
+            <ng-template pTemplate>
+                <button pButton
+                        (click)="open(lastSession())"
+                        label="RECENT SESSION"
+                        [routerLink]="['/wdys/meetings',lastSession().meetingId,'session',lastSession().meetingSessionId]"
+                        icon="pi pi-link"></button>
+                <div class="ml-2" style="font-size: 1.4em;">{{lastSession().description}}</div>
+            </ng-template>
+        </p-messages>
+
+    </div>
+
+    <div *ngIf="todos" class="col-6 layout-dashboard">
+        <wdys-meeting-activities></wdys-meeting-activities>
+    </div>
+
+
+    <div *ngIf="todos" class="col-6">
+        <wdys-meeting-todo-view></wdys-meeting-todo-view>
+    </div>
+
+    <div class="col-6">
+        <wdys-meeting-session-list></wdys-meeting-session-list>
+    </div>
+
+
+
+</div>

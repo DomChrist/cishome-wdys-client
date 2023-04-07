@@ -1,0 +1,22 @@
+<p-table [value]="root.mostCommunication" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>NAME</th>
+            <th style="text-align: right">
+                <em class="pi pi-comments"></em>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-c>
+        <tr>
+            <td>
+                {{c.firstName}} {{c.lastName}}
+            </td>
+            <td style="text-align: right">
+                <label style="font-weight: bold">
+                    <p-badge [value]="c.count" size="large" severity="warning" styleClass="mr-2"></p-badge>
+                </label>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

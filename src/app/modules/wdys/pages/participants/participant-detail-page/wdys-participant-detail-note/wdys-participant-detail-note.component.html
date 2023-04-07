@@ -1,0 +1,36 @@
+<p-panel>
+
+    <div *ngFor="let n of notes">
+        {{n.note.mediumValue}}
+    </div>
+
+
+</p-panel>
+
+
+<p-table [value]="notes">
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th>NOTE</th>
+            <th>CREATED</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-n>
+        <tr>
+            <td>
+                <button
+                    pButton
+                    icon="pi pi-link"
+                    [queryParams]="{note:n.id}"
+                    [routerLink]="['/wdys/meetings',n.meeting.meeting.value,'session',n.meeting.session.value]"></button>
+            </td>
+            <td>
+                {{n.note.mediumValue}}
+            </td>
+            <td>
+                {{n.created}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

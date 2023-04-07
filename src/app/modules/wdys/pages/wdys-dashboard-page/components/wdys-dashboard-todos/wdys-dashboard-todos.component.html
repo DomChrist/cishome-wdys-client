@@ -1,0 +1,29 @@
+<p-table
+    [paginator]="true"
+    [rows]="14"
+    [value]="root.todos">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>TODO</th>
+            <th>PROGRESS</th>
+            <th>VIEW</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-t>
+        <tr>
+            <td>{{t.label}}</td>
+            <td>
+                <p-progressBar *ngIf="t.dueDate" [value]="t.dueDaysTillDeadline" [showValue]="false"></p-progressBar>
+            </td>
+            <td>
+                <button
+                    pButton
+                    class="p-button-rounded"
+                    (click)="router.toSession(t.meeting , t.session , {todo:t.id} )"
+
+                    icon="pi pi-search"></button>
+            </td>
+        </tr>
+    </ng-template>
+
+</p-table>

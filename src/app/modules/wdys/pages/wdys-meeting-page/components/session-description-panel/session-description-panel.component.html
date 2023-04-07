@@ -1,0 +1,13 @@
+<p-panel [toggleable]="true" [collapsed]="true">
+    <p-header>
+        <h3>
+            {{value}}
+        </h3>
+    </p-header>
+                <textarea pInputTextarea rows="5" style="width: 100%" [ngModel]="value">
+                </textarea>
+    <div>
+        <button pButton
+                label="EDIT"></button>
+    </div>
+</p-panel>

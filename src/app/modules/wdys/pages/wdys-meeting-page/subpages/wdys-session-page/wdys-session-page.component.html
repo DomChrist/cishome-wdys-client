@@ -1,0 +1,110 @@
+<div *ngIf="meeting" class="meeting-print">
+
+    <table  class="print-table">
+        <tr>
+            <td>TOPIC</td>
+            <td>{{meeting.meetingTopic}}</td>
+        </tr>
+        <tr>
+            <td>DATE</td>
+            <td>{{session.meetingDate | date:'dd.MM.yyyy H:mm'}}</td>
+        </tr>
+        <tr>
+            <td>PARTICIPANTS</td>
+            <td>
+                <label class="print-participant" *ngFor="let p of session.participants">{{p.fullName}},</label>
+            </td>
+        </tr>
+    </table>
+
+    <h2 style="text-align: center">
+        {{session.description}}
+    </h2>
+
+    <h4>NOTES</h4>
+    <div>
+
+        <table class="print-table">
+            <tr *ngFor="let n of notes">
+                <td style="width: 100px;">
+                    <label>{{n?.participant?.fullName}}</label>
+                </td>
+                <td style="width: 80px; text-align: center">
+                    {{n.created | date:'dd.MM.yyyy'}}
+                </td>
+                <td style="width: calc(100% - 180px)">
+                    <label>{{n.note.value}}</label>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+
+    <label>:-D</label>
+
+</div>
+
+
+<div *ngIf="meeting">
+
+
+    <div>
+        <label style="font-size: 1.3rem;">{{meeting.meetingTopic}}</label>
+        <div>
+            <p-inplace >
+                <ng-template pTemplate="display">
+                    <label style="font-weight: bold; font-size: 2.1rem;">{{session?.description}}</label>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <input #newDescription type="text" [ngModel]="session?.description" pInputText>
+                    <button pButton
+                            icon="pi pi-pencil"
+                            (click)="updateDescription(newDescription.value)"></button>
+                </ng-template>
+            </p-inplace>
+            <hr>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 15px; text-align: right">
+        <wdys-time-tracking-button [meetingId]="meeting.id" [sessionId]="session?.meetingSessionId"></wdys-time-tracking-button>
+        <label>&nbsp;</label>
+        <p-chip [style]="{fontSize:'1.2em'}" icon="pi pi-calendar" [label]="session?.meetingDate | date:'dd.MM.yyyy' "></p-chip>
+        <label>&nbsp;</label>
+        <wdys-share-session-button></wdys-share-session-button>
+        <wdys-delete-session-button [session]="session.meetingSessionId"></wdys-delete-session-button>
+
+    </div>
+
+    <p-tabView>
+        <p-tabPanel header="OVERVIEW">
+            <div class="grid">
+
+                <div class="col-12 lg:col-6">
+                    <wdys-session-description-panel [(value)]="session.description" ></wdys-session-description-panel>
+                </div>
+                <div class="col-12 lg:col-6">
+                    <wdys-session-participant-table ></wdys-session-participant-table>
+                </div>
+
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="NOTES">
+            <wdys-session-note></wdys-session-note>
+        </p-tabPanel>
+        <p-tabPanel header="TODOS">
+            <wdys-session-todo></wdys-session-todo>
+        </p-tabPanel>
+        <p-tabPanel header="TIMETRACKING">
+            <wdys-session-time-tracking></wdys-session-time-tracking>
+        </p-tabPanel>
+    </p-tabView>
+
+
+    <wdys-participant-select-dialog #participantSelect [currentParticipants]="session.participants"></wdys-participant-select-dialog>
+
+
+</div>
+
+

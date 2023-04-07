@@ -1,0 +1,33 @@
+<p-dialog
+    [(visible)]="show"
+    header="SELECT PARTICIPANT">
+
+    <p-table *ngIf="participants"
+             #dt1
+             [value]="participants"
+             [globalFilterFields]="['fullName','firstName','lastName']"
+            >
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="dt1.clear()"></button>
+                <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header"></ng-template>
+        <ng-template pTemplate="body" let-p>
+            <tr>
+                <td>{{p.fullName}}</td>
+                <td>
+                    <button pButton
+                            icon="pi pi-plus"
+                            class="p-button-success"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+</p-dialog>

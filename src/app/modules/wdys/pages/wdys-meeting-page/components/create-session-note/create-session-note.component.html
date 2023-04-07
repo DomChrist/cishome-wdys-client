@@ -1,0 +1,71 @@
+<button
+    pButton
+    style="width: 100%"
+    class="p-button-success"
+    icon="pi pi-plus"
+    (click)="toggle()"
+    label="CREATE NOTE"></button>
+
+
+
+<p-dialog [(visible)]="visible">
+
+    <div *ngIf="session">
+        <p-messages></p-messages>
+        <p-toast position="top"></p-toast>
+        <div>
+            <p-divider align="left" type="dashed">
+                <div class="p-d-inline-flex p-ai-center">
+                    <em class="pi pi-users p-mr-2"></em>
+                    <strong>PARTICIPANTS</strong>
+                </div>
+            </p-divider>
+
+            <div *ngIf="!participant">
+                <label *ngFor="let p of participants">
+                    <p-avatar [label]="p.initial" [pTooltip]="p.fullName" (click)="select(p)" *ngIf="p.selected" styleClass="p-mr-2" size="large" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"></p-avatar>
+                    <p-avatar [label]="p.initial" [pTooltip]="p.fullName" (click)="select(p)" *ngIf="!p.selected" styleClass="p-mr-2" size="large"  shape="circle"></p-avatar>
+                </label>
+            </div>
+            <div *ngIf="participant">
+                <p-avatar [label]="participant.initial" [pTooltip]="participant.fullName" (click)="participant = null" styleClass="p-mr-2" size="large" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"></p-avatar>
+                <label>&nbsp;{{participant.fullName}}</label>
+            </div>
+        </div>
+
+
+        <div *ngIf="note">
+
+            <p-divider align="left" type="dashed">
+                <div class="p-d-inline-flex p-ai-center">
+                    <em class="pi pi-users p-mr-2"></em>
+                    <strong>NOTE</strong>
+                </div>
+            </p-divider>
+            <div>
+            <textarea *ngIf="true" [(ngModel)]="note.note" rows="5" maxlength="255" style="width: 100%;" pInputTextarea >
+
+            </textarea>
+
+                <p-editor *ngIf="false" [(ngModel)]="note.note"  ></p-editor>
+
+                <div>
+                    <label>{{note?.note?.length}}/255</label>
+                </div>
+            </div>
+            <div style="text-align: right">
+                <button pButton
+                        (click)="save()"
+                        class="p-button-success"
+                        label="SAVE"
+                        icon="pi pi-save"></button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+</p-dialog>

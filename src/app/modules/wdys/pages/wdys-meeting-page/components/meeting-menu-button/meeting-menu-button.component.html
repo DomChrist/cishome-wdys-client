@@ -1,0 +1,44 @@
+<button
+    pButton
+    class="p-button-link"
+    (click)="showActions = !showActions"
+    icon="pi pi-ellipsis-v"></button>
+
+
+
+
+<p-dialog
+    header="ACTIONS"
+    [(visible)]="showActions">
+
+    <div style="text-align: left">
+
+        <div class="button-box">
+            <p-button styleClass="p-button-success" (click)="newSession()">
+                <ng-template pTemplate="content">
+                    <div style="width: 95px; height: 95px; padding-top: 15px;">
+                        <i style="font-size: 2.0em" class="pi pi-plus"></i>
+                        <div style="margin-top: 15px;">
+                            <label>CREATE SESSION</label>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-button>
+        </div>
+
+        <div class="button-box">
+            <p-button styleClass="pi-button-danger" (click)="delete()">
+                <ng-template pTemplate="content">
+                    <div style="width: 95px; height: 95px; padding-top: 15px;">
+                        <i style="font-size: 2.0em" class="pi pi-trash"></i>
+                        <div style="margin-top: 15px;">
+                            <label>DELETE</label>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-button>
+        </div>
+
+    </div>
+
+</p-dialog>

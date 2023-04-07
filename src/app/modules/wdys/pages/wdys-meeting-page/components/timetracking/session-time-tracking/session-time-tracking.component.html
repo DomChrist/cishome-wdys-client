@@ -1,0 +1,74 @@
+
+<div class="grid">
+
+    <div class="col-12">
+        <p-table [value]="time?.times">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center">
+                        <em class="pi pi-clock"></em>
+                    </th>
+                    <th>
+                        DESCRIPTION
+                    </th>
+                    <th style="text-align: right">
+                        <wdys-time-tracking-button [sessionId]="session.meetingSessionId"></wdys-time-tracking-button>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-t>
+                <tr>
+                    <td>
+                        {{t.time.formatted}}
+                    </td>
+                    <td colspan="2">
+                        {{t.description}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="col-12">
+
+    </div>
+
+
+
+
+    <div class="col-12" style="text-align: right">
+        <div class="grid dashboard">
+            <div *ngIf="false" class="col-12 md:col-6 lg:col-3">
+                <div class="p-grid p-nogutter card ">
+                    <button pButton></button>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="grid p-nogutter card overview-box overview-box-1">
+                    <span class="overview-box-name">Time Spent</span>
+                    <span class="overview-box-count">{{time?.time?.formatted}}</span>
+                    <img alt="chart1" src="assets/layout/images/dashboard/chart-1.svg" />
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="grid p-nogutter card overview-box overview-box-2">
+                    <span class="overview-box-name">Bookings</span>
+                    <span class="overview-box-count">{{time?.times?.length}}</span>
+                    <span class="overview-box-badge">+45%</span>
+                    <img alt="chart2" src="assets/layout/images/dashboard/chart-2.svg" />
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="grid p-nogutter card overview-box overview-box-1">
+                    <span class="overview-box-name">Average Spent</span>
+                    <span class="overview-box-count">{{time?.time?.formatted}}</span>
+                    <img alt="chart3" src="assets/layout/images/dashboard/chart-1.svg" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+

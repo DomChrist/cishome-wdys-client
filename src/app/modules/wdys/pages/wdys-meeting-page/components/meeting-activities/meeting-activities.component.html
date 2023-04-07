@@ -1,0 +1,59 @@
+<p-panel header="Latest Activities" styleClass="latest-activities">
+    <ul>
+        <li *ngFor="let a of latestFive">
+            <!-- announcement -->
+            <div *ngIf="a.type === 'TODO'" class="activity-link runway-link">
+            </div>
+            <a *ngIf="a.type === 'TODO'" class="activity-logo runway">
+                <i class="pi pi-tag"></i>
+            </a>
+
+            <!-- announcement -->
+            <div *ngIf="a.type === 'TODO_DONE'" class="activity-link runway-link" style="background-color:greenyellow">
+            </div>
+            <a *ngIf="a.type === 'TODO_DONE'" class="activity-logo runway" style="background: greenyellow">
+                <i class="pi pi-tag"></i>
+            </a>
+
+            <!-- management -->
+            <div *ngIf="a.type === 'NOTE'" class="activity-link announcement-link" style="color: #a7c322">
+            </div>
+            <a *ngIf="a.type === 'NOTE'" class="activity-logo announcement" style="background: #a7c322" >
+                <i class="pi pi-comment"></i>
+            </a>
+
+            <!-- sitemap -->
+            <div *ngIf="a.type === 'MEETING'" class="activity-link announcement-link">
+            </div>
+            <a *ngIf="a.type === 'MEETING'" class="activity-logo announcement">
+                <i class="pi pi-sitemap"></i>
+            </a>
+
+
+            <!-- management -->
+            <div *ngIf="a.type === 'PARTICIPANT'" class="activity-link management-link">
+            </div>
+            <a *ngIf="a.type === 'PARTICIPANT'" class="activity-logo management">
+                <i class="pi pi-user"></i>
+            </a>
+
+
+
+
+
+
+
+            <div class="activity-detail">
+                <span>{{a.description}}</span>
+                <span *ngIf="a.type === 'TODO_DONE'" style="margin-left: 5px; color:#a7c322">done</span>
+                <span class="time" style="width:90px">{{a.createdOn | date:'dd.MM H:m'}}</span>
+            </div>
+
+
+        </li>
+    </ul>
+    <p-footer>
+        <label class="p-button-link" style="float:right">show more</label>
+        <div style="clear:both"></div>
+    </p-footer>
+</p-panel>

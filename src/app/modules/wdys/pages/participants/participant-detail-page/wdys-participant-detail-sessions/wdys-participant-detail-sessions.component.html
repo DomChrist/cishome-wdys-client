@@ -1,0 +1,28 @@
+
+
+<div *ngIf="sessions">
+    <p-table [value]="sessions">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 75px"></th>
+                <th>Description</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-s>
+            <tr>
+                <td style="width: 75px">
+                    <button
+                        pButton
+                        icon="pi pi-link"
+                        [routerLink]="['/wdys/meetings',s.meetingReference,'session',s.id]"></button>
+                </td>
+                <td>
+                    {{s.description}}
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>
+

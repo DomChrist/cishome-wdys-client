@@ -1,0 +1,122 @@
+<div class="grid layout-dashboard">
+    <div class="col-12 md:col-6 lg:col-3">
+        <div class="stats-box sales">
+            <span class="statistics-header">MEETINGS</span>
+            <i class="pi pi-angle-right"></i>
+            <img src="assets/layout/images/dashboard/icon-sales.svg" alt="harmony-layout" />
+            <span class="statistics">{{counting ? counting.meetings : 0}}</span>
+            <div class="statistics-info-bg">
+                <span class="statistics-info">16% more than previous month</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+        <div class="stats-box views">
+            <span class="statistics-header">SESSIONS</span>
+            <i class="pi pi-angle-right"></i>
+            <img src="assets/layout/images/dashboard/icon-views.svg" alt="harmony-layout" />
+            <span class="statistics">{{counting ? counting.sessions : 0}}</span>
+            <div class="statistics-info-bg">
+                <span class="statistics-info">2% less than previous month</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+        <div class="stats-box users">
+            <span class="statistics-header">TODOS</span>
+            <i class="pi pi-angle-right"></i>
+            <img src="assets/layout/images/dashboard/icon-users.svg" alt="harmony-layout" />
+            <span class="statistics">{{counting ? counting.todos : 0}}</span>
+            <div class="statistics-info-bg">
+                <span class="statistics-info">{{counting?.todosDone}} done from {{counting?.todos}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+        <div class="stats-box checkins">
+            <span class="statistics-header">NOTES</span>
+            <i class="pi pi-angle-right"></i>
+            <img src="assets/layout/images/dashboard/icon-checkins.svg" alt="harmony-layout" />
+            <span class="statistics">{{counting ? counting.notes : 0}}</span>
+            <div class="statistics-info-bg">
+                <span class="statistics-info">43% more than previous month</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-12 md:col-6 lg:col-6">
+        <app-wdys-dashboard-todos></app-wdys-dashboard-todos>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-6">
+        <wdys-dashboard-most-communication-table></wdys-dashboard-most-communication-table>
+        <div style="padding-top: 15px;">
+            <wdys-dashboard-latest-activity></wdys-dashboard-latest-activity>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 md:col-6">
+        <p-table
+            [paginator]="true"
+            *ngIf="lastEdited"
+            [rows]="10"
+            [value]="lastEdited">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>LAST EDITED TOPIC</th>
+                    <th>PROGRESS</th>
+                    <th>VIEW</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-m>
+                <tr>
+                    <td>{{m.topic}}</td>
+                    <td>
+                        <p-progressBar [value]="m.finishedInPercent" [showValue]="false"></p-progressBar>
+                    </td>
+                    <td>
+                        <button
+                            pButton
+                            class="p-button-rounded"
+                            (click)="router.toMeeting(m.id)"
+                            icon="pi pi-search"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="col-12 lg-col-6 md:col-6 ">
+        <p-table
+            *ngIf="meetingList"
+            [paginator]="true"
+            [rows]="10"
+            [value]="meetingList.meetingList">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>TOPIC</th>
+                    <th style="width: 75px;">VIEW</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-m>
+                <tr>
+                    <td>{{m.meetingTopic}}</td>
+                    <td>
+                        <button
+                            pButton
+                            class="p-button-rounded"
+                            (click)="router.toMeeting(m.id)"
+                            icon="pi pi-search"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+</div>
+
+<wdys-running-time-tracker></wdys-running-time-tracker>

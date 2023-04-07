@@ -1,0 +1,48 @@
+<button
+    pButton
+    *ngIf="!running && combinedTime() > 0"
+    class="p-button-warning p-button-rounded p-button-raised"
+    (click)="showBookingDialog = !showBookingDialog"
+    label="BOOK"></button>
+<button
+    pButton
+    class="p-button-success p-button-rounded p-button-raised"
+    *ngIf="!running"
+    [label]="diff()"
+    (click)="play()"
+    icon="pi pi-play">
+</button>
+<button
+    pButton
+    (click)="pause()"
+    [label]="diff()"
+    class="p-button-danger p-button-rounded p-button-raised"
+    *ngIf="running"
+    icon="pi pi-pause">
+</button>
+<p-chip *ngIf="!running && combinedTime() > 0" (click)="reset()" icon="pi pi-replay" label="Reset"></p-chip>
+<ng-container *ngTemplateOutlet="booking"></ng-container>
+
+
+
+<p-dialog
+    header="TIME BOOKING"
+    [(visible)]="showBookingDialog"
+    #dialog>
+
+    <div class="grid">
+        <div class="col-12">
+            <p-divider>TIME BOOKING</p-divider>
+            <textarea style="width: 100%" [(ngModel)]="cmd.description" pInputTextarea rows="3" maxlength="200">
+            </textarea>
+            <div style="margin: 5px;">
+            </div>
+            <button pButton
+                    style="width: 100%"
+                    label="BUCHEN"
+                    (click)="book()"></button>
+        </div>
+    </div>
+
+</p-dialog>
+

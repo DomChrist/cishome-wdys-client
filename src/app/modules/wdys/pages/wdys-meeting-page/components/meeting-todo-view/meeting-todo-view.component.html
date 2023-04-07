@@ -1,0 +1,29 @@
+<p-table [value]="todos.todos">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>DONE</th>
+            <th></th>
+            <th>DESCRIPTION</th>
+            <th>DUE DATE</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-t>
+        <tr>
+            <td>
+                <p-checkbox [disabled]="true" [binary]="true" [(ngModel)]="t.checked"></p-checkbox>
+            </td>
+            <td>
+                <label class="external-link">
+                    <label (click)="loadMeetingFromTodo(t)" class="pi pi-external-link external-link"></label>
+                    <span>&nbsp;</span>
+                </label>
+            </td>
+            <td>
+                {{t.label}}
+            </td>
+            <td>
+                {{t.dueDate}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

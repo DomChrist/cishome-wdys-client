@@ -412,6 +412,11 @@
                 &.announcement-link {
                     background-color: #e4018d;
                 }
+
+                &.todo-link{
+                    background-color: #00dac7;
+                }
+
             }
 
             .activity-logo {
@@ -441,6 +446,10 @@
                     &.announcement {
                         color: #64003e;
                     }
+
+                    &.todo{
+                        color: #00dac7;
+                    }
                 }
 
                 &.runway {
@@ -455,6 +464,11 @@
 
                 &.announcement {
                     background-color: #e4018d;
+                    vertical-align: middle;
+                }
+
+                &.todo {
+                    background-color: #00dac7;
                     vertical-align: middle;
                 }
             }
