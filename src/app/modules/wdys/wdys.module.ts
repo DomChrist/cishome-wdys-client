@@ -62,6 +62,13 @@ import { ParticipantSelectDialogComponent } from './dialogs/participants/partici
 import { SessionParticipantTableComponent } from './pages/wdys-meeting-page/components/session-participant-table/session-participant-table.component';
 import {InplaceModule} from "primeng/inplace";
 import { MeetingMenuButtonComponent } from './pages/wdys-meeting-page/components/meeting-menu-button/meeting-menu-button.component';
+import {SidebarModule} from "primeng/sidebar";
+import { MeetingParticipantComponent } from './components/meeting-participant/meeting-participant.component';
+import { CounterLabelComponent } from './components/counter-label/counter-label.component';
+import { TimeTrackingCardComponent } from './features/timetracking/components/time-tracking-card/time-tracking-card.component';
+import { UserTimeTrackingComponent } from './features/timetracking/components/user-time-tracking/user-time-tracking.component';
+import { TimerFormatPipe } from './features/timetracking/pipes/timer-format.pipe';
+import { BookTimeDialogComponent } from './features/timetracking/dialogs/book-time-dialog/book-time-dialog.component';
 
 
 
@@ -99,7 +106,13 @@ import { MeetingMenuButtonComponent } from './pages/wdys-meeting-page/components
         DeleteSessionButtonComponent,
         ParticipantSelectDialogComponent,
         SessionParticipantTableComponent,
-        MeetingMenuButtonComponent
+        MeetingMenuButtonComponent,
+        MeetingParticipantComponent,
+        CounterLabelComponent,
+        TimeTrackingCardComponent,
+        UserTimeTrackingComponent,
+        TimerFormatPipe,
+        BookTimeDialogComponent
     ],
     exports: [
         WdysSearchInputComponent
@@ -134,7 +147,8 @@ import { MeetingMenuButtonComponent } from './pages/wdys-meeting-page/components
         TagModule,
         BadgeModule,
         AutoCompleteModule,
-        InplaceModule
+        InplaceModule,
+        SidebarModule
     ]
 })
 export class WdysModule { }

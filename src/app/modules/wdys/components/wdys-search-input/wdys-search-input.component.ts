@@ -34,7 +34,7 @@ export class WdysSearchInputComponent implements OnInit {
 
   public search( event, query: string ){
       if( query && query.length >= 3 ){
-          this.meeting.apiMeetingQuerySearchGet( query , 'response').subscribe( {
+          this.meeting.meetingQuery( query , 'response').subscribe( {
               next: (resp) => {
                   this.meetingResult = resp.body;
               }

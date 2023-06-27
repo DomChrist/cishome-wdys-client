@@ -7,6 +7,7 @@
 
 
     <div class="col-12" style="text-align: right">
+
         <button
             pButton
             icon="pi pi-plus"
@@ -15,18 +16,49 @@
 
         <meeting-menu-button></meeting-menu-button>
 
+
     </div>
 
-    <div  class="col-6">
+    <div class="col-4 lg:col-2">
+        <p-card>
+            <div style="text-align:center">
+                <label>TODOS</label>
+                <div *ngIf="todos">
+                    <app-counter-label [style]="{fontSize:'3em'}" [target]="todos.todoCounter - todos.finishedTodoCounter"></app-counter-label>
+                </div>
+            </div>
+        </p-card>
+    </div>
+
+    <div class="col-4 lg:col-2">
+        <p-card>
+            <div style="text-align:center">
+                <label>SESSIONS</label>
+                <div>
+                    <app-counter-label [style]="{fontSize:'3em'}" [target]="meeting.session.count"></app-counter-label>
+                </div>
+            </div>
+        </p-card>
+    </div>
+
+    <div class="col-4 lg:col-2">
+        <p-card>
+            <div style="text-align:center">
+                <label>PARTICIPANTS</label>
+                <div>
+                    <app-counter-label [style]="{fontSize:'3em'}" [target]="meeting.participants.length"></app-counter-label>
+                </div>
+            </div>
+        </p-card>
+    </div>
+
+    <div  class="col-12 md:col-12 lg:col-6">
         <wdys-meeting-date-range *ngIf="meeting"></wdys-meeting-date-range>
     </div>
 
-
-    <div class="col-6">
+    <div class="col-12 md:col-12 lg:col-12">
         <p-panel header="PARTICIPANTS">
-            <p-avatarGroup>
-                <p-avatar [pTooltip]="p.fullName" *ngFor="let p of meeting.participants" [label]="p.initial" size="xlarge" shape="circle" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" ></p-avatar>
-            </p-avatarGroup>
+            <app-meeting-participant [participants]="meeting.participants"></app-meeting-participant>
         </p-panel>
     </div>
 
@@ -44,19 +76,14 @@
 
     </div>
 
-    <div *ngIf="todos" class="col-6 layout-dashboard">
+    <div *ngIf="todos" class="sm:col-12 md:col-12 lg:col-5 layout-dashboard">
+        <wdys-meeting-todo-view [showOnlyOpen]="root.mobile" ></wdys-meeting-todo-view>
         <wdys-meeting-activities></wdys-meeting-activities>
     </div>
 
-
-    <div *ngIf="todos" class="col-6">
-        <wdys-meeting-todo-view></wdys-meeting-todo-view>
-    </div>
-
-    <div class="col-6">
+    <div class="col-12 md:col-12 lg:col-7">
         <wdys-meeting-session-list></wdys-meeting-session-list>
     </div>
-
 
 
 </div>

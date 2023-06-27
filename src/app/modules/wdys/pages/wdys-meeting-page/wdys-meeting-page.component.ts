@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {
     LatestActivitiesJpaEntity,
-    Meeting,
+    Meeting, MeetingOverview,
     MeetingTodoAggregate,
-    WdysMeetingService,
+    WdysMeetingService, WdysTimebookingService,
     WdysTodoService
 } from "../../../../core/api/v1";
 import {BreadcrumbService} from "../../../../app.breadcrumb.service";
 import {MeetingViewEventBusService} from "./services/meeting-view-event-bus.service";
 import {WdysRoutingService} from "../../services/wdys-routing.service";
+import {AppComponent} from "../../../../app.component";
+import {AppMainComponent} from "../../../../app.main.component";
 
 @Component({
   selector: 'app-wdys-meeting-page',
@@ -23,8 +25,11 @@ export class WdysMeetingPageComponent implements OnInit {
     private $todos: MeetingTodoAggregate;
     private $activities: Array<LatestActivitiesJpaEntity>;
 
+    public meetingTime: MeetingOverview;
+
     public showCreateSessionDialog = false;
 
+    private mobile$ = this.app.isMobile();
 
     constructor(
         private routing: ActivatedRoute,
@@ -32,7 +37,9 @@ export class WdysMeetingPageComponent implements OnInit {
         private meetingService: WdysMeetingService,
         private eventBus: MeetingViewEventBusService,
         private todoService: WdysTodoService,
-        private bread: BreadcrumbService
+        private readonly time: WdysTimebookingService,
+        private bread: BreadcrumbService,
+        private readonly app: AppMainComponent
     ) { }
 
     ngOnInit(): void {
@@ -46,6 +53,7 @@ export class WdysMeetingPageComponent implements OnInit {
                 this.loadMeeting();
                 this.loadActivites();
                 this.loadTodos();
+                this.loadTime();
             }}
         );
 
@@ -54,8 +62,14 @@ export class WdysMeetingPageComponent implements OnInit {
 
     }
 
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this.mobile$ = this.app.isMobile();
+        console.log("is mobile: " + this.mobile$);
+    }
+
     delete() {
-        this.meetingService.apiMeetingCmdIdDelete( this.$id , 'response' ).subscribe( {
+        this.meetingService.deleteMeeting( this.$id , 'response' ).subscribe( {
             next: value => {
                 this.router.toDashboard();
             }
@@ -72,6 +86,13 @@ export class WdysMeetingPageComponent implements OnInit {
 
     private loadTodos(){
         this.todoService.apiWdysTodoQueryMeetingGet( this.$id , 'body' ).subscribe( { next: value => this.handleMeetingTodo(value)} );
+    }
+
+    private loadTime(){
+        this.time.meetingTime( this.$id )
+            .subscribe( (data) => {
+                this.meetingTime = data;
+            });
     }
 
     get id(){
@@ -103,5 +124,8 @@ export class WdysMeetingPageComponent implements OnInit {
         return this.$meeting?.participants;
     }
 
+    get mobile(): boolean {
+        return this.mobile$;
+    }
 
 }

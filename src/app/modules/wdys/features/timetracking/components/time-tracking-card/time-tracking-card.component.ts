@@ -1,14 +1,20 @@
 import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {SessionStampTimer, SessionTimeTrackingService} from "../../../../../features/timetracking/services/session-time-tracking.service";
+import {BookTimeCommand} from "../../../../../../core/api/v1";
+import {SessionStampTimer, SessionTimeTrackingService} from "../../services/session-time-tracking.service";
 import {Subscription} from "rxjs";
-import {BookTimeCommand} from "../../../../../../../core/api/v1";
 
 @Component({
-  selector: 'wdys-time-tracking-button',
-  templateUrl: './time-tracking-button.component.html',
-  styleUrls: ['./time-tracking-button.component.scss']
+  selector: 'app-time-tracking-card',
+  templateUrl: './time-tracking-card.component.html',
+  styleUrls: ['./time-tracking-card.component.scss']
 })
-export class TimeTrackingButtonComponent implements OnInit {
+export class TimeTrackingCardComponent implements OnInit {
+
+    public readonly START: State = { type: "start", background: '#689F38', color: 'snow' , text: 'START' , icon: 'pi-play' , action: () => this.play() };
+    public readonly RUNNING: State = { type: "running", background: '#D32F2F', color: 'snow' , text: 'STOP' , icon: 'pi-clock' , action: () => this.pause() };
+    public readonly PAUSE: State = { type: "pause", background: '#fff9a8', color: 'black' , text: 'PAUSE' , icon: 'pi-pause' , action: () => this.pause() };
+
+    public state: State = this.START;
 
     @Input()
     public sessionId: string;
@@ -56,16 +62,14 @@ export class TimeTrackingButtonComponent implements OnInit {
 
     public play(){
         this.init();
-        if ( this.timer ){
-            this.timer.play();
-            this.timerService.startCall(this.meetingId, this.sessionId);
-        } else {
-            this.timerService.start(this.meetingId, this.sessionId);
-        }
+        this.timerService.startCall( this.meetingId , this.sessionId , () => {
+            this.state = this.RUNNING;
+        } );
     }
 
     public pause(){
         this.timerService.pause(this.sessionId,this.timer);
+        this.state = this.PAUSE;
     }
 
     public reset(){
@@ -82,6 +86,7 @@ export class TimeTrackingButtonComponent implements OnInit {
 
     get running(){
         if ( this.timer && this.timer.running ) {
+            this.state = this.RUNNING;
             return true;
         }
         return false;
@@ -94,5 +99,15 @@ export class TimeTrackingButtonComponent implements OnInit {
         return this.timer.diff();
     }
 
+
+}
+
+interface State{
+    type: string;
+    background: string;
+    color: string;
+    text: string;
+    icon: string;
+    action: () => void;
 
 }

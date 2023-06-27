@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {WdysSessionPageComponent} from "../../subpages/wdys-session-page/wdys-session-page.component";
 import {CreateMeetingTodoCommand, MeetingTodo, WdysTodoService} from "../../../../../../core/api/v1";
 import {Observable} from "rxjs";
@@ -17,6 +17,9 @@ export class SessionTodoComponent implements OnInit {
   public selectedItemId: string;
 
   public cmd: CreateMeetingTodoCommand;
+
+  @Input()
+  public showHeader = false;
 
   constructor(public sessionView: WdysSessionPageComponent,
               private meetingEventBus: MeetingViewEventBusService,
@@ -70,10 +73,6 @@ export class SessionTodoComponent implements OnInit {
 
   get todoList(){
       return this.sessionView.todos?.todos;
-  }
-
-  get showHeader(){
-      return false;
   }
 
 }

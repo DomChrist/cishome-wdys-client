@@ -4,6 +4,11 @@
     <p-table [value]="todoList" [responsive]="false" >
         <ng-template *ngIf="showHeader" pTemplate="caption">
             <div style="float: left">
+                <button
+                    pButton
+                    (click)="showCreateDialog = !showCreateDialog"
+                    icon="pi pi-plus"
+                    class="p-button-success"></button>
                 <h3>TODOS</h3>
             </div>
             <div style="clear: both"></div>

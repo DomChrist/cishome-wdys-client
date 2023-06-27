@@ -1,49 +1,78 @@
 <div class="grid layout-dashboard">
-    <div class="col-12 md:col-6 lg:col-3">
+    <div class="col-6 md:col-6 lg:col-3">
         <div class="stats-box sales">
-            <span class="statistics-header">MEETINGS</span>
+            <span style="font-size: 1.1em;" class="statistics-header">MEETINGS</span>
             <i class="pi pi-angle-right"></i>
             <img src="assets/layout/images/dashboard/icon-sales.svg" alt="harmony-layout" />
-            <span class="statistics">{{counting ? counting.meetings : 0}}</span>
+            <span class="statistics">
+                <app-counter-label [target]="counting ? counting.meetings : 0"></app-counter-label>
+            </span>
             <div class="statistics-info-bg">
-                <span class="statistics-info">16% more than previous month</span>
+                <span class="statistics-info">lot of meetings</span>
             </div>
         </div>
     </div>
-    <div class="col-12 md:col-6 lg:col-3">
+    <div class="col-6 md:col-6 lg:col-3">
         <div class="stats-box views">
             <span class="statistics-header">SESSIONS</span>
             <i class="pi pi-angle-right"></i>
             <img src="assets/layout/images/dashboard/icon-views.svg" alt="harmony-layout" />
-            <span class="statistics">{{counting ? counting.sessions : 0}}</span>
+            <span class="statistics">
+                <app-counter-label [target]="counting ? counting.sessions : 0"></app-counter-label>
+            </span>
             <div class="statistics-info-bg">
-                <span class="statistics-info">2% less than previous month</span>
+                <span class="statistics-info">and more sessions</span>
             </div>
         </div>
     </div>
-    <div class="col-12 md:col-6 lg:col-3">
+    <div class="col-6 md:col-6 lg:col-3">
         <div class="stats-box users">
             <span class="statistics-header">TODOS</span>
             <i class="pi pi-angle-right"></i>
             <img src="assets/layout/images/dashboard/icon-users.svg" alt="harmony-layout" />
-            <span class="statistics">{{counting ? counting.todos : 0}}</span>
+            <span class="statistics">
+                <app-counter-label [min]="counting?.todos * 0.55" [target]="counting ? counting.todos : 0"></app-counter-label>
+            </span>
             <div class="statistics-info-bg">
                 <span class="statistics-info">{{counting?.todosDone}} done from {{counting?.todos}}</span>
             </div>
         </div>
     </div>
-    <div class="col-12 md:col-6 lg:col-3">
+    <div class="col-6 md:col-6 lg:col-3">
         <div class="stats-box checkins">
             <span class="statistics-header">NOTES</span>
             <i class="pi pi-angle-right"></i>
             <img src="assets/layout/images/dashboard/icon-checkins.svg" alt="harmony-layout" />
-            <span class="statistics">{{counting ? counting.notes : 0}}</span>
+            <span class="statistics">
+                <app-counter-label [min]="counting?.notes * 0.5" [target]="counting ? counting.notes : 0"></app-counter-label>
+            </span>
             <div class="statistics-info-bg">
-                <span class="statistics-info">43% more than previous month</span>
+                <span class="statistics-info">Note Everything!</span>
             </div>
         </div>
     </div>
 
+    <div class="col-12">
+        <wdys-user-time-tracking></wdys-user-time-tracking>
+    </div>
+
+    <div class="col-12">
+        <div *ngFor="let n of next">
+            <p-card>
+                <div class="grid">
+                    <div class="col-12 md:col-1">
+                                <p-tag [value]="n.meetingDate | date:'dd.MM'"></p-tag>
+                                <label>&nbsp;</label>
+                                <p-tag [value]="n.daysUntil"></p-tag>
+                    </div>
+                    <div class="col-12 md:col-8" (click)="router.toMeeting(n.meetingReference)">
+                        {{n.description}}
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
 
     <div class="col-12 md:col-6 lg:col-6">
         <app-wdys-dashboard-todos></app-wdys-dashboard-todos>

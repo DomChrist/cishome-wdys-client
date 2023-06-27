@@ -12,6 +12,9 @@ export class DeleteSessionButtonComponent implements OnInit {
   @Input()
   public session: string;
 
+  @Input()
+  card = false;
+
   constructor(
       private service: WdysMeetingService,
       private eventBus: MeetingViewEventBusService

@@ -10,9 +10,11 @@
  * Do not edit the class manually.
  */
 import { MeetingStatus } from './meetingStatus';
+import { SessionWindow } from './sessionWindow';
 
 
 export interface MeetingRoot { 
     status?: MeetingStatus;
+    sessions?: SessionWindow;
 }
 

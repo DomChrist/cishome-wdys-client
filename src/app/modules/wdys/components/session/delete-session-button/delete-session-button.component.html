@@ -1,7 +1,19 @@
 
     <button
+        *ngIf="!card"
         pButton
         (click)="delete()"
         icon="pi pi-trash"
         label="DELETE"
         class="p-button-danger p-button-rounded"></button>
+
+    <div class="p-card wdys-button-card" *ngIf="card" >
+
+        <i class="pi pi-trash wdys-button-icon" ></i>
+        <div style="margin-top: 10px">
+            <label style="font-weight: bold; color: snow">
+                DELETE
+            </label>
+        </div>
+
+    </div>

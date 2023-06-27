@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 export class MeetingSessionListComponent implements OnInit {
 
   constructor(
-      private root: WdysMeetingPageComponent,
+      public root: WdysMeetingPageComponent,
       private routing: Router
   ) { }
 

@@ -35,7 +35,7 @@ export class WdysCreateMeetingPageComponent implements OnInit {
     }
 
     public save(){
-        this.meetingService.apiMeetingCmdNewPost( this.$cmd , 'response').subscribe({
+        this.meetingService.createMeeting( this.$cmd , 'response').subscribe({
             next: (resp) => {
                 this.router.navigate( ['/wdys/meetings/' , resp.body.id ] );
             }

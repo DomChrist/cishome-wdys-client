@@ -237,7 +237,7 @@ FullCalendarModule.registerPlugins([
             useFactory: (auth: CisAuthService) => new Configuration({
                     basePath: environment.cisHome.host,
                     credentials : {
-                        token : 'Bearer ' + auth.plainToken
+                        token : '' + auth.plainToken
                     }
                 }
             )

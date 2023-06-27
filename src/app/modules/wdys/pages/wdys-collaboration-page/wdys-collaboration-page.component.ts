@@ -34,7 +34,7 @@ export class WdysCollaborationPageComponent implements OnInit {
     }
 
     public load(){
-        this.collaborationService.apiMeetingCollaborationSessionSessionGet( this.$session , this.code , 'response' ).subscribe(
+        this.collaborationService.findSessionCollaboration( this.$session , this.code , 'response' ).subscribe(
             {
                 next: (resp) => {
                     this.$valid = true;

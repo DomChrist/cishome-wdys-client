@@ -16,5 +16,6 @@ export interface SimpleSessionProjection {
     description?: string;
     meetingDate?: string;
     meetingReference?: string;
+    daysUntil?: number;
 }
 

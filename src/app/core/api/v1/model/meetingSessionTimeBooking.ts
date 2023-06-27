@@ -9,16 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { MeetingTimeValue } from './meetingTimeValue';
+import { MeetingSessionBookingRoot } from './meetingSessionBookingRoot';
 import { SessionTimeStamp } from './sessionTimeStamp';
-import { Creator } from './creator';
+import { MeetingSessionTimeBookingTime } from './meetingSessionTimeBookingTime';
 import { MeetingSessionId } from './meetingSessionId';
 
 
 export interface MeetingSessionTimeBooking { 
+    root?: MeetingSessionBookingRoot;
     session?: MeetingSessionId;
-    time?: MeetingTimeValue;
-    creator?: Creator;
+    time?: MeetingSessionTimeBookingTime;
     times?: Array<SessionTimeStamp>;
 }
 

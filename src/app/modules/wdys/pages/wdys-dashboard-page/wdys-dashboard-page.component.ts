@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {
     LatestActivitiesJpaEntity,
     MeetingDashboardCountJpaEntity, MeetingDashboardJpaEntity,
-    MeetingListResponse, MostCommunicativeParticipantJpaEntity, OverDueJpaEntity,
+    MeetingListResponse, MostCommunicativeParticipantJpaEntity, OverDueJpaEntity, SimpleSessionProjection,
     WdysDashboardService,
     WdysMeetingService
 } from "../../../../core/api/v1";
 import {BreadcrumbService} from "../../../../app.breadcrumb.service";
 import {WdysRoutingService} from "../../services/wdys-routing.service";
+import {count} from "rxjs";
 
 @Component({
   selector: 'wdys-dashboard-page',
@@ -22,6 +23,7 @@ export class WdysDashboardPageComponent implements OnInit {
   public lastEdited: Array<MeetingDashboardJpaEntity>;
   public mostCommunication: Array<MostCommunicativeParticipantJpaEntity>;
   public latestActivity: Array<LatestActivitiesJpaEntity>;
+  public next: Array<SimpleSessionProjection>;
 
   constructor(
       private wdys: WdysMeetingService,
@@ -32,11 +34,12 @@ export class WdysDashboardPageComponent implements OnInit {
 
   ngOnInit(): void {
       this.wdys.apiMeetingQueryGet( 'response' ).subscribe( {next: resp => this.handleMeetings(resp.body)} );
-      this.dash.apiMeetingDashboardQueryCountingsGet('response').subscribe({next: (resp) => this.handleCounting(resp.body)} );
-      this.dash.apiMeetingDashboardQueryOverdueGet( 'body' ).subscribe( {next: value => this.handleTodo(value)} );
-      this.dash.apiMeetingDashboardQueryLastEditedMeetingsGet('body').subscribe( {next: value => this.handleLastEdited(value)} );
-      this.dash.apiMeetingDashboardQueryMostCommunicationsGet('body').subscribe( {next: value =>  this.handleMostCommunication(value)} );
+      this.dash.countings('response').subscribe({next: (resp) => this.handleCounting(resp.body)} );
+      this.dash.overdueTodo( 'body' ).subscribe( {next: value => this.handleTodo(value)} );
+      this.dash.lastMeetingChanges('body').subscribe( {next: value => this.handleLastEdited(value)} );
+      this.dash.participantWitMostCommunication('body').subscribe( {next: value =>  this.handleMostCommunication(value)} );
       this.dash.apiMeetingDashboardQueryLatestActivityGet('body').subscribe( {next: value => this.handleActivities(value)} );
+      this.dash.nextSessions( 'body' ).subscribe({next: value => this.handleNext(value)});
 
 
       this.bread.setItems([{label: 'WDYS' , routerLink: '/wdys'}])
@@ -66,7 +69,14 @@ export class WdysDashboardPageComponent implements OnInit {
         this.latestActivity = value;
     }
 
+
     get latestFive(){
       return this.latestActivity?.slice(0,5);
+    }
+
+    protected readonly count = count;
+
+    private handleNext(value: Array<SimpleSessionProjection>) {
+        this.next = value;
     }
 }

@@ -46,65 +46,74 @@
 </div>
 
 
+
 <div *ngIf="meeting">
 
 
-    <div>
-        <label style="font-size: 1.3rem;">{{meeting.meetingTopic}}</label>
-        <div>
-            <p-inplace >
-                <ng-template pTemplate="display">
-                    <label style="font-weight: bold; font-size: 2.1rem;">{{session?.description}}</label>
-                </ng-template>
-                <ng-template pTemplate="content">
-                    <input #newDescription type="text" [ngModel]="session?.description" pInputText>
-                    <button pButton
-                            icon="pi pi-pencil"
-                            (click)="updateDescription(newDescription.value)"></button>
-                </ng-template>
-            </p-inplace>
-            <hr>
+
+    <div class="grid">
+
+        <div class="col-12">
+            <p-panel [header]="meeting.meetingTopic">
+
+                <p-header>
+                    <p-chip [style]="{fontSize:'1.2em'}" icon="pi pi-calendar" [label]="session?.meetingDate | date:'dd.MM.yyyy' "></p-chip>
+                </p-header>
+
+                <p-inplace [closable]="true" >
+                    <ng-template pTemplate="display">
+                        <label style="font-weight: bold; font-size: 2.1rem;">{{session?.description}}</label>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <input #newDescription [style]="{width:'calc(100% - 70px' , fontWeight:'bold'}" type="text" [ngModel]="session?.description" pInputText>
+                        <button pButton
+                                icon="pi pi-pencil"
+                                (click)="updateDescription(newDescription.value)"></button>
+                    </ng-template>
+                </p-inplace>
+            </p-panel>
         </div>
-    </div>
 
-    <div style="margin-bottom: 15px; text-align: right">
-        <wdys-time-tracking-button [meetingId]="meeting.id" [sessionId]="session?.meetingSessionId"></wdys-time-tracking-button>
-        <label>&nbsp;</label>
-        <p-chip [style]="{fontSize:'1.2em'}" icon="pi pi-calendar" [label]="session?.meetingDate | date:'dd.MM.yyyy' "></p-chip>
-        <label>&nbsp;</label>
-        <wdys-share-session-button></wdys-share-session-button>
-        <wdys-delete-session-button [session]="session.meetingSessionId"></wdys-delete-session-button>
+        <div class="col-12">
+                <div class="grid">
+                    <div class="col-4 lg:col-2" [class.lg:col-offset-5]="!meetingView.mobile">
+                        <app-time-tracking-card [meetingId]="meeting.id" [sessionId]="session.meetingSessionId"></app-time-tracking-card>
+                    </div>
+                    <div class="col-4 lg:col-2">
+                        <wdys-share-session-button [card]="true"></wdys-share-session-button>
+                    </div>
+                    <div class="col-4 lg:col-2">
+                        <wdys-delete-session-button card="true" [session]="session.meetingSessionId"></wdys-delete-session-button>
+                    </div>
 
-    </div>
-
-    <p-tabView>
-        <p-tabPanel header="OVERVIEW">
-            <div class="grid">
-
-                <div class="col-12 lg:col-6">
-                    <wdys-session-description-panel [(value)]="session.description" ></wdys-session-description-panel>
-                </div>
-                <div class="col-12 lg:col-6">
-                    <wdys-session-participant-table ></wdys-session-participant-table>
                 </div>
 
-            </div>
-        </p-tabPanel>
-        <p-tabPanel header="NOTES">
-            <wdys-session-note></wdys-session-note>
-        </p-tabPanel>
-        <p-tabPanel header="TODOS">
-            <wdys-session-todo></wdys-session-todo>
-        </p-tabPanel>
-        <p-tabPanel header="TIMETRACKING">
-            <wdys-session-time-tracking></wdys-session-time-tracking>
-        </p-tabPanel>
-    </p-tabView>
+        </div>
+
+        <div class="col-12" [class.lg:col-4]="!meetingView.mobile">
+            <wdys-session-participant-table ></wdys-session-participant-table>
+        </div>
 
 
-    <wdys-participant-select-dialog #participantSelect [currentParticipants]="session.participants"></wdys-participant-select-dialog>
+        <div class="col-12" [class.lg:col-8]="!meetingView.mobile">
+            <p-accordion [activeIndex]="0" >
+                <p-accordionTab header="NOTES">
+                    <wdys-session-note></wdys-session-note>
+                </p-accordionTab>
+                <p-accordionTab header="TODOS">
+                    <wdys-session-todo [showHeader]="meetingView.mobile"></wdys-session-todo>
+                </p-accordionTab>
+                <p-accordionTab header="TIME">
+                    <wdys-session-time-tracking></wdys-session-time-tracking>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
 
+    </div>
 
 </div>
+
+
+
 
 

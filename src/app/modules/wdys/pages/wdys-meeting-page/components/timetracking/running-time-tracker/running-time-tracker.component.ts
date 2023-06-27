@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SessionStampTimer, SessionTimeTrackingService} from "../../../../../services/session-time-tracking.service";
+import {SessionStampTimer, SessionTimeTrackingService} from "../../../../../features/timetracking/services/session-time-tracking.service";
 
 @Component({
   selector: 'wdys-running-time-tracker',
@@ -11,13 +11,14 @@ export class RunningTimeTrackerComponent implements OnInit {
     public tracker: SessionStampTimer;
     public collapsed = false;
 
-    constructor( private timeService: SessionTimeTrackingService ) { }
-
-    ngOnInit(): void {
-        this.init();
+    constructor( private timeService: SessionTimeTrackingService ) {
         this.timeService.timerActionStream.subscribe( () => {
             this.init();
         });
+    }
+
+    ngOnInit(): void {
+        this.init();
     }
 
     private init(){

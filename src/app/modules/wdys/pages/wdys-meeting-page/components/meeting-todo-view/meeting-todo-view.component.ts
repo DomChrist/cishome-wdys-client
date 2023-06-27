@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {MeetingTodo, MeetingTodoAggregate} from "../../../../../../core/api/v1";
 import {WdysMeetingPageComponent} from "../../wdys-meeting-page.component";
@@ -9,6 +9,9 @@ import {WdysMeetingPageComponent} from "../../wdys-meeting-page.component";
   styleUrls: ['./meeting-todo-view.component.scss']
 })
 export class MeetingTodoViewComponent implements OnInit {
+
+  @Input()
+  public showOnlyOpen = false;
 
   constructor(
       private routing: Router,
@@ -28,6 +31,13 @@ export class MeetingTodoViewComponent implements OnInit {
 
     get todos(): MeetingTodoAggregate{
         return this.root?.todos;
+    }
+
+    get list(){
+      if( this.showOnlyOpen ){
+          return this.root.todos.todos.filter( t => !t.checked );
+      }
+      return this.root.todos.todos;
     }
 
 }

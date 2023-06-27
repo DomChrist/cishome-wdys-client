@@ -90,20 +90,18 @@ export class Configuration {
         // init default SecurityScheme credential
         if (!this.credentials['SecurityScheme']) {
             this.credentials['SecurityScheme'] = () => {
-                return typeof this.accessToken === 'function'
-                    ? this.accessToken()
-                    : this.accessToken;
+                return (this.username || this.password)
+                    ? btoa(this.username + ':' + this.password)
+                    : undefined;
             };
         }
 
         // init default token credential
         if (!this.credentials['token']) {
             this.credentials['token'] = () => {
-                if (this.apiKeys === null || this.apiKeys === undefined) {
-                    return undefined;
-                } else {
-                    return this.apiKeys['token'] || this.apiKeys['Authorization'];
-                }
+                return typeof this.accessToken === 'function'
+                    ? this.accessToken()
+                    : this.accessToken;
             };
         }
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WdysSessionPageComponent} from "../../../subpages/wdys-session-page/wdys-session-page.component";
 import {BookTimeCommand} from "../../../../../../../core/api/v1";
-import {SessionTimeTrackingService} from "../../../../../services/session-time-tracking.service";
+import {SessionTimeTrackingService} from "../../../../../features/timetracking/services/session-time-tracking.service";
 
 @Component({
   selector: 'wdys-session-time-tracking',

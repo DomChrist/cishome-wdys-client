@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {WdysCollaborationService} from "../../../../../../core/api/v1";
 import {WdysSessionPageComponent} from "../../subpages/wdys-session-page/wdys-session-page.component";
 
@@ -10,6 +10,8 @@ import {WdysSessionPageComponent} from "../../subpages/wdys-session-page/wdys-se
 export class ShareSessionButtonComponent implements OnInit {
 
     public collaboration;
+
+    @Input() card: boolean = false;
 
     constructor( private collaborationService: WdysCollaborationService,
                  private sessionView: WdysSessionPageComponent) { }
@@ -30,14 +32,14 @@ export class ShareSessionButtonComponent implements OnInit {
 
 
     private load(){
-        this.collaborationService.apiMeetingActivateMeetingMeetingSessionSessionGet( this.sessionView.meetingId , this.sessionView.session.meetingSessionId , 'response').subscribe({
+        this.collaborationService.findSessionCollaboration( this.sessionView.meetingId , this.sessionView.session.meetingSessionId , 'response').subscribe({
             next: (resp) => this.collaboration = resp.body
         });
     }
 
     public activate(){
         this.collaborationService
-            .apiMeetingActivateMeetingMeetingSessionSessionPost( this.sessionView.session.meetingId , this.sessionView.session.meetingSessionId ).subscribe( {
+            .activateSessionAccess( this.sessionView.session.meetingId , this.sessionView.session.meetingSessionId ).subscribe( {
             next: value => this.load()
         } )
     }

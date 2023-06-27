@@ -9,7 +9,7 @@
         <div style="padding: 10px; text-align: center" >
             <button
                 pButton
-                [label]="tracker?.diff()"
+                [label]="tracker?.time * 1000 | timerFormat"
                 class="p-button-danger p-button-rounded p-button-raised"
                 icon="pi pi-pause"></button>
         </div>

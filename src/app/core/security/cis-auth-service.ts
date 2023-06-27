@@ -162,15 +162,17 @@ export class CisAuthService {
             console.log(this.securityIdentity.access?.plain);
             console.log( 'expired: ' + this.isExpired() );
         }
+        /*
         if( this.isExpired() ){
             if( !environment.production ){
                 console.log('refresh');
             }
-            this.refresh();
+            //this.refresh();
             waitForAsync( ()=>{
-               this.refresh();
+               //this.refresh();
             });
         }
+         */
         return this.securityIdentity?.access?.plain;
     }
 

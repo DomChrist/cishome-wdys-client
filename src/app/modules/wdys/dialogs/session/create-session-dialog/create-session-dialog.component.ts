@@ -38,6 +38,15 @@ export class CreateSessionDialogComponent implements OnInit {
   ngOnInit(): void {
       this.cmd = {};
       this.meetingDate = new Date();
+
+      const d = this.meetingDate.getDate();
+      const m = this.meetingDate.getMonth() + 1;
+      const y = this.meetingDate.getFullYear();
+
+      this.cmd.description = d < 10 ? '0' + d : d+"";
+      this.cmd.description = this.cmd.description + "." + (m < 10 ? '0' + m : m)+".";
+      this.cmd.description = this.cmd.description + "" + y;
+
   }
 
   public save(){

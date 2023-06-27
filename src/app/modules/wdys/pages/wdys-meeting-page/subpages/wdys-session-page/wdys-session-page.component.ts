@@ -3,7 +3,7 @@ import {WdysMeetingViewComponent} from "../wdys-meeting-view/wdys-meeting-view.c
 import {WdysMeetingPageComponent} from "../../wdys-meeting-page.component";
 import {
     MeetingNote,
-    MeetingSession, MeetingSessionTimeBooking, SessionTodoAggregate, UpdateSessionDescriptionCommand,
+    MeetingSession, SessionTodoAggregate, UpdateSessionDescriptionCommand,
     WdysMeetingService,
     WdysNotesService, WdysTimebookingService,
     WdysTodoService
@@ -12,6 +12,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpResponse} from "@angular/common/http";
 import {BreadcrumbService} from "../../../../../../app.breadcrumb.service";
 import {MeetingViewEventBusService} from "../../services/meeting-view-event-bus.service";
+import {MeetingSessionTimeBooking} from "../../../../../../core/api/v1/model/meetingSessionTimeBooking";
+import {AppMainComponent} from "../../../../../../app.main.component";
 
 @Component({
   selector: 'app-wdys-session-page',
@@ -30,12 +32,13 @@ export class WdysSessionPageComponent implements OnInit {
       private activeRoute: ActivatedRoute,
       private routing: Router,
       private eventBus: MeetingViewEventBusService,
-      private meetingView: WdysMeetingPageComponent,
+      public meetingView: WdysMeetingPageComponent,
       private meetingService: WdysMeetingService,
       private todoService: WdysTodoService,
       private noteService: WdysNotesService,
       public timerService: WdysTimebookingService,
-      private bread: BreadcrumbService
+      private bread: BreadcrumbService,
+      public readonly app: AppMainComponent
   ) {
       this.eventBus.meetingInitializedStream.subscribe( {next: (m) => {
               this.activeRoute.paramMap.subscribe( {
@@ -167,5 +170,12 @@ export class WdysSessionPageComponent implements OnInit {
 
     addParticipant() {
 
+    }
+
+    activeIndex(): number | number[]  {
+        if( this.meetingView.mobile ) {
+            return 0;
+        }
+        return [1];
     }
 }

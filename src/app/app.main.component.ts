@@ -169,7 +169,8 @@ export class AppMainComponent implements OnInit{
     }
 
     isMobile() {
-        return window.innerWidth < 1025;
+        const w = window.innerWidth < 1025;
+        return w;
     }
 
     isDesktop() {

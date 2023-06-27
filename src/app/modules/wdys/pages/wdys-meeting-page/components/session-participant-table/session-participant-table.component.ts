@@ -11,12 +11,13 @@ import {AddParticipantRequest, Participant, WdysMeetingService} from "../../../.
 export class SessionParticipantTableComponent implements OnInit {
 
   constructor(
-      private sessionView: WdysSessionPageComponent,
+      public sessionView: WdysSessionPageComponent,
       private participantService: ParticipantService,
       private meetingService: WdysMeetingService
   ) { }
 
   public show = false;
+  public showMobileSidebar = false;
 
   ngOnInit(): void {
   }
@@ -55,5 +56,16 @@ export class SessionParticipantTableComponent implements OnInit {
                     this.sessionView.session.participants.push(p);
                 }
             });
+    }
+
+    mobileParticipantView(): Array<Participant> {
+      const number = 7;
+      if( !this.participants || this.participants.length == 0 ) return null;
+      if( this.participants.length < number ) return this.participants;
+      const p = new Array<Participant>(3);
+      for( let i = 0; i < number; i++ ){
+          p[i] = this.participants[i];
+      }
+      return p;
     }
 }

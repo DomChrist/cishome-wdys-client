@@ -1,0 +1,42 @@
+
+
+<div *ngIf="state.type !== 'pause'" class="p-card wdys-button-card" [ngStyle]="{'background' : state.background}" (click)="state.action()" >
+    <i [class.pi-spin]="running" [ngStyle]="{'color' : state.color}" class="pi wdys-button-icon" [ngClass]="state.icon" ></i>
+    <div style="margin-top: 10px">
+        <label [ngStyle]="{'color' : state.color}" style="font-weight: bold">
+            {{diff()}}
+        </label>
+    </div>
+</div>
+
+<div *ngIf="state.type === 'pause'">
+    <div class="grid p-card wdys-button-card" >
+        <div class="col-4 booking" (click)="showBookingDialog = !showBookingDialog" >
+            <i class="pi pi-book wdys-button-icon"  ></i>
+            <div style="margin-top: 10px">
+                <label style="font-weight: bold; color: snow">
+                    BOOKING
+                </label>
+            </div>
+        </div>
+        <div class="col-4 " [ngStyle]="{'background' : state.background}" (click)="state.action()" >
+            <i [class.pi-spin]="running" [ngStyle]="{'color' : state.color}" class="pi wdys-button-icon" [ngClass]="state.icon" ></i>
+            <div style="margin-top: 10px">
+                <label style="font-weight: bold; color: black">
+                    {{diff()}}
+                </label>
+            </div>
+        </div>
+        <div class="col-4 delete" (click)="showBookingDialog = !showBookingDialog" >
+            <i class="pi pi-trash wdys-button-icon"  ></i>
+            <div style="margin-top: 10px">
+                <label style="font-weight: bold; color: snow">
+                    DELETE
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-book-time-dialog [meeting]="meetingId" [session]="sessionId" [(visible)]="showBookingDialog"></app-book-time-dialog>
+

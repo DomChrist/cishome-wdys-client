@@ -1,4 +1,35 @@
-<p-panel *ngIf="meeting" header="SESSIONS">
+
+<div *ngIf="root.mobile && meeting">
+
+    <h2>
+        SESSIONS
+        <p-chip icon="pi pi-clock" [label]="root.meetingTime.spentString"></p-chip>
+    </h2>
+
+    <div *ngFor="let m of meeting.session.sessions" style="margin-bottom: 10px; width: 100%">
+        <p-card [header]="m.meetingName" [subheader]="m.meetingDate">
+            <p>{{m.description}}</p>
+
+            <button pButton label="Read more" class="p-button-text" (click)="openSession(meeting.session.first.meetingSessionId)" ></button>
+
+            <p-avatarGroup styleClass="p-mb-3">
+                <p-avatar *ngFor="let p of participants(m)" [label]="p.initial"  size="large" [pTooltip]="p.firstName" shape="circle"></p-avatar>
+            </p-avatarGroup>
+
+        </p-card>
+    </div>
+
+
+</div>
+
+
+
+<p-panel *ngIf="!root.mobile && meeting" >
+
+    <p-header>
+        SESSIONS
+        <p-chip icon="pi pi-clock" [label]="root.meetingTime.spentString"></p-chip>
+    </p-header>
 
     <div *ngIf="false">
 
